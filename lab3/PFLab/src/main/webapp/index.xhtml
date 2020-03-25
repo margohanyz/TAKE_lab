@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Prime Faces Lab</title>
+    </h:head>
+    <h:body>
+        <p:tabView>
+            <p:tab title="Form">
+                <h:form>
+                    <p:growl id="growl" showDetail="true" sticky="true" />
+                    <br/>
+                    <p:spinner id="liczba1" value="#{calculateBean.liczba1}"/>
+                    +
+                    <p:spinner id="liczba2" value="#{calculateBean.liczba2}"/>
+                    <p:commandButton id="policz" ajax="true" action="#{calculateBean.calculate()}" value="Calculate" update="wynik data"/>
+                    =
+                    <h:outputText id="wynik" value="#{calculateBean.suma}"/>
+                    <br/>
+                    <h:outputText id="data" value="#{calculateBean.data}"/>
+                </h:form>                    
+            </p:tab>
+
+            <p:tab title="Table">
+                <h:form>
+                    <p:dataTable value="#{studentsBean.students}" var="student" paginator="true">
+                        <p:column headerText="Imie">
+                            <h:outputText value="#{student.imie}" />
+                        </p:column>
+
+                        <p:column headerText="Nazwisko" sortBy="#{student.nazwisko}">
+                            <h:outputText value="#{student.nazwisko}" />
+                        </p:column>
+
+                        <p:column headerText="Srednia" sortBy="#{student.srednia}">
+                            <h:outputText value="#{student.srednia}" />
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </p:tab>
+            
+            <p:tab title="Chart">
+                <p:chart type="line" model="#{chartBeam.sincos}" style="height:300px;" widgetVar="sincos"/>                   
+                <h:form>
+                    <p:commandButton value="Reset" onclick="PF('sincos').resetZoom()"/>
+                </h:form>
+            </p:tab>
+            
+        </p:tabView>
+    </h:body>
+</html>
